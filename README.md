@@ -17,7 +17,7 @@ This tool will be most useful for black and white maps with limited labels. It w
 
 * prepare raster by removing any unnecessary lettering or inset maps, and filling any dotted lines, if desired
 * Upload to ArcGIS project and georeference raster if it is not already (accuracy is important!)
-* Open the tool, and fill in the parameters. <b>Workspace must be a GEODATABASE</b>
+* Open the tool, and fill in the parameters. Make sure default scratch workspace is a GEODATABASE. This should be the default.
 * Click run
 
 ## Help
