@@ -10,7 +10,7 @@ import arcpy
 from arcpy.sa import *
 arcpy.CheckOutExtension("Spatial")
 arcpy.env.overwriteOutput = True
-path = arcpy.GetParameterAsText(3) + "\\"
+path = arcpy.env.scratchWorkspace + "\\"
 input1 = arcpy.GetParameterAsText(0)
 desc = arcpy.Describe(input1)
 rasterInput = desc.catalogPath + "/" + input1
@@ -24,11 +24,11 @@ remap = RemapRange([[0, 200, 1], [200, 255, "NODATA"]])
 raster = Reclassify(band1, "Value", remap)
 
 # raster to polygon
-polygon1 = "polygon1.shp"
+polygon1 = path + "poly1"
 arcpy.conversion.RasterToPolygon(raster, polygon1)
 
 # merge
-polygon2 = "polygon2.shp"
+polygon2 = path + "poly2"
 arcpy.management.Merge(polygon1, polygon2)
 
 # removes all except the largest part of the feature layer
@@ -69,11 +69,11 @@ arcpy.management.FeatureToPolygon(line, output)
 # ta-da!
 
 # Clean-up
-arcpy.management.DeleteFeatures(polygon1)
-arcpy.management.DeleteFeatures(poly3)
-arcpy.management.DeleteFeatures(line)
-arcpy.management.DeleteFeatures(line2)
-arcpy.management.DeleteFeatures(polygon2)
-arcpy.management.DeleteFeatures(poly4)
+arcpy.management.Delete(polygon1)
+arcpy.management.Delete(poly3)
+arcpy.management.Delete(line)
+arcpy.management.Delete(line2)
+arcpy.management.Delete(polygon2)
+arcpy.management.Delete(poly4)
 del polygon1, line, raster, output, rasterInput, remap, band1, line2, polygon2
 del desc, input1, row, coord_sys, poly3, poly4, path
